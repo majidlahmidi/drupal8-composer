@@ -2,12 +2,11 @@
 
 Steps to follow :
 
-1. git clone https://github.com/drupal-composer/drupal-project.git drupal8-folder
-. cd drupal8-folder
+1. git clone https://github.com/drupal-composer/drupal-project.git drupal8-folder 
 
 2. Modify composer.json if necessary
 
-3. composer install
+3. cd drupal8-folder && composer install
 
 4. other commands
 
