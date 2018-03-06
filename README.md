@@ -23,3 +23,13 @@ visit the website url and follow the instructions
 5. To install a contrib module with composer use this :
 
 composer require "drupal/token:1.x-dev"
+
+6. Drush
+
+No need to install drush, use instead this command :
+
+vendor/bin/drush
+
+7. Drupal Console
+
+vendor/bin/drupal
