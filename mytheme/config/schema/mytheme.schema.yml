@@ -1,8 +1,0 @@
-# Schema for the configuration files of the mytheme theme.
-mytheme.settings:
-  type: theme_settings
-  label: 'mytheme settings'
-  mapping:
-    font_size:
-      type: integer
-      label: Font size
