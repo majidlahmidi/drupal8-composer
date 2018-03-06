@@ -1,0 +1,54 @@
+version: "3.3"
+
+networks:
+  proxy:
+    external: true
+  internal:
+    external: false
+
+services:
+  web:
+    image: ausy-apache
+    labels:
+      - traefik.backend=drupal8
+      - traefik.frontend.rule=Host:www.drupal8.loc
+      - traefik.docker.network=proxy
+      - traefik.port=80
+    networks:
+      - internal
+      - proxy
+    depends_on:
+      - mysql
+#      - mail
+    volumes:
+      - ./:/var/www/html
+      - ./docker/config/httpd/sites-enabled:/etc/httpd/sites-enabled
+    working_dir: /var/www/html
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./docker/data/database:/var/lib/mysql
+      - ./docker/config/mysql:/etc/mysql/conf.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=drupal8
+      - MYSQL_USER=drupal8
+      - MYSQL_PASSWORD=drupal8
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    labels:
+      - traefik.backend=pma
+      - traefik.frontend.rule=Host:www.phpmyadmin.loc
+      - traefik.docker.network=proxy
+      - traefik.port=80
+    networks:
+      - internal
+      - proxy
+    depends_on:
+      - mysql
+    environment:
+      - PMA_HOST=mysql
